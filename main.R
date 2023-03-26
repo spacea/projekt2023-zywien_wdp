@@ -1,18 +1,13 @@
-#pierwsza wersja publiczna
-#content w lewych slash oznacza, co narazie jest do zmiany
+#v 0.1.26
+#info: content w lewych slash oznacza, co narazie jest do zmiany
 
-#potrzebne pakiety do działania
-
-# !!!!!!!!!!!!!!!!!!!!!!!!!
-#install.packages("rvest")
-#install.packages("xlsx")
-#install.packages("sqldf")
-#!!!!!!!!!!!!!!!!!!!!!!!!!!
-
-#biblioteki
+#biblioteki 
 library(rvest)
-library(xlsx)  
+library(xlsx)
+library(ggplot2)
 library(sqldf)
+library(dplyr)
+library(readxl)
 
 #link do danych
 url = "http://www.wyniki-skoki.hostingasp.pl/Konkurs.aspx?season=2023&id=50&rodzaj=M"
@@ -24,7 +19,8 @@ data = page %>%
   html_elements("table#ctl00_MainContent_GridView1") 
 
 xd = html_table(data)
-#zapis 
+
+#zapis danych, które zostaną odczytane
 temp_data = write.xlsx(
   xd, 
   "temp_wisla.xlsx",
@@ -36,20 +32,39 @@ temp_data = write.xlsx(
   password = NULL
 )
 
+#odczyt danych i usunięcie niepotrzebnych kolumn
 
 
-#odczyt danych \zapisać jako zmienną\
+read_temp = read_excel("temp_wisla.xlsx")
+read_temp
+read_temp = read_temp[ ,-c(1,8,9,11)]
+read_temp
 
-read_temp = read.xlsx(
-  "temp_wisla.xlsx",
-  "Sheet1",
-  )
+#przykładowa selekcja przez zapytania w SQL + eksport wyniku jednego zapytania
 
-read_temp$Suma.punktow
+query_1 = sqldf("select * from read_temp where Miejsce is not NULL")
+query_2 = sqldf("select * from read_temp where Narodowość = 'POL' and Miejsce is not NULL")
+query_1
+query_2
+zoomers = sqldf("select count([Rok.Urodzenia]) as 'Liczba zawodników urodzona w/po 2000'
+from read_temp where [Rok.Urodzenia] >= 2000 and [Suma.punktow] != 'Tq'")
 
-sqldf("select * from read_temp where Miejsce is not NULL")
-sqldf("select * from read_temp where Narodowość = 'POL' and Miejsce is not NULL")
-sqldf("select skok2 from read_temp")
+zoomers
+
+zoomers_export = write.xlsx(
+  zoomers,
+  "zoomers_result.xlsx",
+  sheetName = "Shit1",
+  col.names = TRUE,
+  row.names = TRUE,
+  append = FALSE,
+  showNA = TRUE,
+  password = NULL
+)
+
+#usunięcie tymczasowego pliku
+
+unlink("temp_wisla.xlsx")
 
 #dodatkowe info: nie można odczytać poszczególnych danych bezpośrednio ze strony
 #powód: brak klas/id żeby móc to zrobić

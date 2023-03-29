@@ -1,5 +1,7 @@
-#v 0.1.26
+#v 0.2.28
 #info: content w lewych slash oznacza, co narazie jest do zmiany
+
+#cele: dodanie możliwości analizy większej ilości konkursow
 
 #biblioteki 
 library(rvest)
@@ -18,11 +20,11 @@ page = read_html(url)
 data = page %>% 
   html_elements("table#ctl00_MainContent_GridView1") 
 
-xd = html_table(data)
+table_content = html_table(data)
 
 #zapis danych, które zostaną odczytane
 temp_data = write.xlsx(
-  xd, 
+  table_content, 
   "temp_wisla.xlsx",
   sheetName = "Sheet1",
   col.names = TRUE,
@@ -70,4 +72,5 @@ unlink("temp_wisla.xlsx")
 #powód: brak klas/id żeby móc to zrobić
 #rozwiązanie tymczasowe: pobieranie całego pliku tymczasowo do selekcji,
 #zapis wyselekcjonowanych danych, następnie usunięcie go
+
 

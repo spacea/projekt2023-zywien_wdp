@@ -5,6 +5,9 @@
 #temp = write.xlsx(dane, "temp_.xlsx",sheetName = "Sheet1",col.names = TRUE,row.names = TRUE,append = FALSE,showNA = TRUE,password = NULL)
 #read_temp_ = read_excel("temp_.xlsx")
 
+library(rvest)
+library()
+
 #SEZON 2023
 
 url = "http://www.wyniki-skoki.hostingasp.pl/Konkurs.aspx?season=2023&id=86&rodzaj=M"

@@ -21,7 +21,7 @@ shinyApp(
     conditionalPanel(
       condition = "input.chooseofdata == 'Konkurs'",
       selectInput
-      ("chooseofyear", "Wybierz sezon: ",
+      ("chooseofseason", "Wybierz sezon: ",
         yeariteration()
       ),
     ),
@@ -39,11 +39,11 @@ shinyApp(
   server = function(input, output) {
     output$chosen = renderUI({
       typeofdata = input$chooseofdata
-      year = input$chooseofyear
+      season = input$chooseofseason
       
       div(
         p(paste("Wybrałeś: ", typeofdata)),
-        p(paste("Wybrałeś rok: ", year))
+        p(paste("Wybrałeś sezon: ", season))
       )
     })
   }

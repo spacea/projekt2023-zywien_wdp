@@ -1,13 +1,23 @@
 yeariteration = function()
 {
-  i = "2022"
-  d = list()
-  while(i != "2014")
+  x = "2021"
+  d = list("Wybierz poniżej")
+  while(x != "2014")
   {
-    d = append(d, i)
-    i = as.numeric(i)
-    i = i - 1
-    i = toString(i)
+    d = append(d, x)
+    x = as.numeric(x)
+    x = x - 1
+    x = toString(x)
   }
   return(d)
 }
+superfunction = function()
+{
+  
+}
+
+
+
+
+
+

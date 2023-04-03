@@ -10,6 +10,8 @@ library()
 
 #SEZON 2023
 
+#url = c("http://www.wyniki-skoki.hostingasp.pl/Konkurs.aspx?season=",sezon,"&id=",miejsce,"&rodzaj=M")
+
 url = "http://www.wyniki-skoki.hostingasp.pl/Konkurs.aspx?season=2023&id=86&rodzaj=M"
 page = read_html(url)
 data = page %>% html_elements("table#ctl00_MainContent_GridView1") 

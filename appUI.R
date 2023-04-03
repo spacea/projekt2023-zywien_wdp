@@ -24,6 +24,25 @@ shinyApp(
       ("chooseofseason", "Wybierz sezon: ",
         yeariteration()
       ),
+      
+      conditionalPanel(
+        condition = "input.chooseofseason == '2021'",
+        selectInput
+        ("chooseofplace", "Wybierz miejsce:",
+          list("Wybierz poniżej",
+               "Wisla",
+               "Nizhny Tagil")
+        ),
+        
+        conditionalPanel(
+          condition = "input.chooseofplace == 'Wisla'",
+          selectInput
+          ("chooseofdata", "Wybierz date:",
+            list("Wybierz poniżej",
+                 "2020.11.22")
+          ),
+        ),  
+      ),
     ),
     
     conditionalPanel(

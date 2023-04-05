@@ -1,3 +1,26 @@
+select_data = function()
+{
+
+}  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 yeariteration = function()
 {
   x = "2021"
@@ -11,10 +34,7 @@ yeariteration = function()
   }
   return(d)
 }
-superfunction = function()
-{
-  
-}
+
 
 
 

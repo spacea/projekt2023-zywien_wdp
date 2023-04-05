@@ -1,7 +1,11 @@
 source("functions.R")
 
+
 library(shiny)
-library(shinyFiles)
+library(dplyr)
+library(RSelenium)
+library(sqldf)
+library(rvest)
 
 shinyApp(
   ui = fluidPage(
@@ -30,16 +34,16 @@ shinyApp(
         selectInput
         ("chooseofplace", "Wybierz miejsce:",
           list("Wybierz poniżej",
-               "Wisla",
-               "Nizhny Tagil")
+               "'Wisla'",
+               "'Nizhny Tagil'")
         ),
         
         conditionalPanel(
-          condition = "input.chooseofplace == 'Wisla'",
+          condition = "input.chooseofplace == \"'Wisla'\"",
           selectInput
-          ("chooseofdata", "Wybierz date:",
+          ("chooseofdate", "Wybierz date:",
             list("Wybierz poniżej",
-                 "2020.11.22")
+                 "'2020.11.22'")
           ),
         ),  
       ),
@@ -51,20 +55,75 @@ shinyApp(
         ("skijumper", "Wpisz imię i nazwisko zawodnika: "
         ),
     ),
+    actionButton("harvestdata", "Zbierz dane"),
       uiOutput("chosen")
       
   ),
   
-  server = function(input, output) {
-    output$chosen = renderUI({
-      typeofdata = input$chooseofdata
-      season = input$chooseofseason
+  server = function(input, output, session) {
+    observeEvent(input$harvestdata, {
       
-      div(
-        p(paste("Wybrałeś: ", typeofdata)),
-        p(paste("Wybrałeś sezon: ", season))
-      )
+      season = input$chooseofseason
+      place = input$chooseofplace
+      date_ = input$chooseofdate
+      
+      if(season == "Wybierz poniżej" || place == "Wybierz poniżej" || 
+         date_  == "Wybierz poniżej" || input$chooseofdata == "Wybierz poniżej")
+      {
+        stop("wszystkie dane muszą zostać wybrane!")
+      }
+      if(input$chooseofdata == "Konkurs")
+      {
+        rd = rsDriver(port = 4444L,
+                      browser = "firefox",
+                      chromever = NULL)
+        remDr = rd[["client"]]
+        remDr$navigate("http://www.wyniki-skoki.hostingasp.pl/WyborZawodow.aspx")
+        
+        concat_choose_season = paste("//*/option[@value =", season, "]")
+        choose_season = remDr$findElement(using = 'xpath', concat_choose_season)
+        choose_season$clickElement()
+        Sys.sleep(1)
+        
+        choose_wc = remDr$findElement(using = 'xpath', "//*/option[@value = 'Puchar Świata']")
+        choose_wc$clickElement()
+        Sys.sleep(1)
+        
+        concat_choose_place = paste("//*/option[@value =", place ,"]")
+        choose_place = remDr$findElement(using = 'xpath', concat_choose_place)
+        choose_place$clickElement()
+        Sys.sleep(1)
+        
+        click_place = remDr$findElement(using = 'xpath', "//*/img[@src = 'plus.png']")
+        click_place$clickElement()
+        Sys.sleep(1)
+        
+        concat_choose_date = paste0("(//td[contains(text(),", date_ ,")])[2]//following::td/a")
+        choose_date = remDr$findElement(using = "xpath", concat_choose_date)
+        choose_date$clickElement()
+        Sys.sleep(1)
+        
+        url = choose_date$getCurrentUrl()
+        url = toString(url)
+        
+        page = read_html(url)
+        
+        data = page %>% 
+          html_elements("table#ctl00_MainContent_GridView1") 
+        
+        table_content = html_table(data)
+        table_content = data.frame(table_content)
+        table_content = table_content[ ,-c(7,8,10)]
+        
+        results = sqldf("select * from table_content where [Suma.punktow] != 'Tq' 
+                        order by Miejsce")
+        
+        output$chosen = renderTable({ 
+          results
+        })
+      }
     })
   }
 )
 
+system("taskkill /im java.exe /f", intern=FALSE, ignore.stdout=FALSE)

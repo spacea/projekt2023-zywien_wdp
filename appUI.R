@@ -106,20 +106,23 @@ shinyApp(
         url = choose_date$getCurrentUrl()
         url = toString(url)
         
+        remDr$close()
+        system("taskkill /im java.exe /f", intern=FALSE, ignore.stdout=FALSE)
+        
         page = read_html(url)
         
         data = page %>% 
           html_elements("table#ctl00_MainContent_GridView1") 
         
+        
         table_content = html_table(data)
         table_content = data.frame(table_content)
         table_content = table_content[ ,-c(7,8,10)]
         
-        results = select_data()
+        results = sqldf("select * from table_content where Narodowość = 'POL' and 
+                [Suma.punktow] != 'Tq' order by Miejsce")
         
-        remDr$close()
-        
-        system("taskkill /im java.exe /f", intern=FALSE, ignore.stdout=FALSE)
+        #select_data() 
         
         output$chosen = renderTable({ 
           results

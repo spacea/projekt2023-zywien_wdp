@@ -11,6 +11,7 @@
 * [Do zrobienia](#do-zrobienia)
 * [Wykorzystane dane](#wykorzystane-dane)
 * [Autorzy](#autorzy)
+* [Dodatkowe informacje](#dodatkowe-informacje)
 
 
 ## Wstęp
@@ -20,23 +21,26 @@
 
 
 ## Zastosowania
-- Filtrowanie danych zawodów o puchar świata pod względem sezonu, a następnie miejsca i daty zawodów.
-- Filtrowanie danych zawodników.
+- Filtrowanie danych zawodów Pucharu Świata pod względem sezonu, a następnie miejsca i daty zawodów.
+- Filtrowanie danych zawodników (obecnie trwają prace nad tym).
 
 
 ## Wymagania
-- Pakiety wymagane do poprawnego działania programu znajdują się w pliku requiared_packeges.R
+- Pakiety wymagane do poprawnego działania programu znajdują się w pliku required_packages.R
 - Wymagana wersja R - 4.2.3
+- Przeglądarka - Mozilla Firefox 
 
 ## Uruchamianie
-- Program uruchamiamy poprzez wczytanie plików main.R, a następnie functions.R, w skutek czego otwiera nam się okno Shiny.
+- Program uruchamiamy poprzez wczytanie pliku appUI.R, w skutek czego otwiera nam się okno Shiny.
 - Następnie klikamy w polę pod "Wybierz rodzaj danych:" i zaznaczamy "Konkurs", lub "Zawodnicy".
-- W przypadku wybrania konkursu wyświetlą nam się kolejne pola wyboru takie jak "Wybierz sezon" -> "Wybierz miejsce:" -> "Wybierz date:", po których wybraniu wyświetli nam się tabela z tych konkretnych zawodów
+### Obsługa modułu "Konkurs"
+- W przypadku wybrania konkursu wyświetlą nam się kolejne pola wyboru takie jak "Wybierz sezon" -> "Wybierz miejsce:" -> "Wybierz date:"
+- Przed naciśnięciem przycisku "Zbierz dane" można uruchomić plik "query.R" i zmienić zapytanie lub zaprojektować własne w języku SQL (należy pamiętac o zakomentowaniu niepotrzebnych danych!)
+### Obsługa modułu "Zawodnicy"
 - W przypadku wybrania zwodników wyświetli nam się pole "Wpisz imię i nazwisko zawodnika:", gdzie wpisujemy interesującą nas osobę i otrzymujemy dane o nim.
 
 ## Do zrobienia
-- Dodanie kolejnych lat do zawodów pucharu świata (aktualnie do sezonu 2015)
-- Dodanie innych typów zawodów
+- Dodanie kolejnych lat i konkursów do zawodów PŚ
 
 ## Wykorzystane dane
 - Wykorzystywana baza danych w programie - http://www.wyniki-skoki.hostingasp.pl/
@@ -44,3 +48,12 @@
 ## Autorzy
 - Aleksander Żywień
 - Marcel Tomczak
+
+## Dodatkowe informacje
+- sporadycznie może pojawić się błąd:
+> Selenium message:Unable to locate element: [reszta informacji o błędzie]
+w takim przypadku, należy kliknąć w konsolę, a następnie naciśnąć "ESC". Po tym wpisać w nią 
+> system("taskkill /im java.exe /f", intern=FALSE, ignore.stdout=FALSE).
+- w przypadku pojawienia się błędu:
+> Error in wdman::selenium: Selenium server signals port = 4444 is already in use.
+należy zrobić co powyżej.

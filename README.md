@@ -35,7 +35,7 @@
 - Następnie klikamy w polę pod "Wybierz rodzaj danych:" i zaznaczamy "Konkurs", lub "Zawodnicy".
 ### Obsługa modułu "Konkurs"
 - W przypadku wybrania konkursu wyświetlą nam się kolejne pola wyboru takie jak "Wybierz sezon" -> "Wybierz miejsce:" -> "Wybierz date:"
-- Przed naciśnięciem przycisku "Zbierz dane" można uruchomić plik "query.R" i zmienić zapytanie lub zaprojektować własne w języku SQL (należy pamiętac o zakomentowaniu niepotrzebnych danych!)
+- Przed naciśnięciem przycisku "Zbierz dane" można uruchomić plik i zmienić zapytanie w linii 122 pliku appUI.R lub zaprojektować własne w języku SQL, przykłady są w pliku "query.R" (należy pamiętac o zakomentowaniu niepotrzebnych danych!)
 ### Obsługa modułu "Zawodnicy"
 - W przypadku wybrania zwodników wyświetli nam się pole "Wpisz imię i nazwisko zawodnika:", gdzie wpisujemy interesującą nas osobę i otrzymujemy dane o nim.
 

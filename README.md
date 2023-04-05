@@ -17,7 +17,7 @@
 ## Wstęp
 - Ski Harvester pobiera i wyświetla dane dotyczące skoków narciaskich w łatwy i przystępeny dla użytkowanika sposób.
 - Program ma na celu uławtić i przyśpieszyć proces wyszukiwania informacji dla tego konkretnego sportu.
-- Projekt powstał, ponieważ autor zaobserwował brak możliwości szybkiego przeglądania danych o skokach narciarskich na dużej skali.
+- Projekt powstał, ponieważ jeden z autorów zaobserwował brak możliwości szybkiej analizy danych o skokach narciarskich we własnym zakresie.
 
 
 ## Zastosowania
@@ -41,6 +41,7 @@
 
 ## Do zrobienia
 - Dodanie kolejnych lat i konkursów do zawodów PŚ
+- Uproszczenie możliwości wykonywania zapytań w możliwym zakresie
 
 ## Wykorzystane dane
 - Wykorzystywana baza danych w programie - http://www.wyniki-skoki.hostingasp.pl/
@@ -53,7 +54,7 @@
 - sporadycznie może pojawić się błąd:
 > Selenium message:Unable to locate element: [reszta informacji o błędzie]
 - w takim przypadku, należy kliknąć w konsolę, a następnie naciśnąć "ESC". Po tym wpisać w nią 
-> system("taskkill /im java.exe /f", intern=FALSE, ignore.stdout=FALSE).
+> <b>system("taskkill /im java.exe /f", intern=FALSE, ignore.stdout=FALSE).</b>
 - w przypadku pojawienia się błędu:
 > Error in wdman::selenium: Selenium server signals port = 4444 is already in use.
 - należy zrobić co powyżej.

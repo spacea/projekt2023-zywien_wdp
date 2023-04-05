@@ -11,10 +11,7 @@ yeariteration = function()
   }
   return(d)
 }
-superfunction = function()
-{
-  
-}
+
 
 
 

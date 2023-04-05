@@ -1,7 +1,19 @@
 #v 0.2.34
 #info: content w lewych slash oznacza, co narazie jest do zmiany
 
-
+output$chosen = renderUI({
+  typeofdata <<- input$chooseofdata
+  season <<- input$chooseofseason
+  place <<- input$chooseofplace
+  date_ <<- input$chooseofdate
+  
+  div(
+    p(paste("Wybrałeś: ", typeofdata)),
+    p(paste("Wybrałeś sezon: ", season)),
+    p(paste("Wybrałeś miejsce: ", place)),
+    p(paste("Wybrałeś date: ", date_)),
+  )
+})
 #biblioteki 
 library(rvest)
 library(xlsx)
@@ -15,12 +27,15 @@ library(RSelenium)
 #uruchamianie Selenium, które posłuszy do znalezienia poszukiwanej strony
 system("taskkill /im java.exe /f", intern=FALSE, ignore.stdout=FALSE)
   
+
+
 rd = rsDriver(port = 4444L,
               browser = "firefox",
-               chromever = NULL)
+              chromever = NULL)
 remDr = rd[["client"]]
-remDr$navigate("http://www.wyniki-skoki.hostingasp.pl/WyborZawodow.aspx")
 
+remDr$navigate("http://www.wyniki-skoki.hostingasp.pl/WyborZawodow.aspx")
+remDr$remoteServerAddr(check = TRUE)
 
 #docieranie do odpowiedniej strony
 year = '2021'
@@ -44,26 +59,29 @@ click_place = remDr$findElement(using = 'xpath', "//*/img[@src = 'plus.png']")
 click_place$clickElement()
 Sys.sleep(1)
 
-concat_choose_date = paste("(//td[contains(text(),'Wisla')])"[4])
-choose_date = remDr$findElement(using = 'xpath', "(//a[contains(text(),'Wisla')])[4]")
-choose_date$clickElement()
+next_element <- remDr$findElement(using = "xpath", 
+                                        "(//td[contains(text(),'2020.11.22')])[2]//following::td/a")
 
-choose_date$getCurrentUrl()
+next_element$getElementText()
+next_element$clickElement()
+
+next_element$getCurrentUrl()
 
 
 #link do danych
-url = choose_date$getCurrentUrl()
+url = "http://www.wyniki-skoki.hostingasp.pl/Konkurs.aspx?season=2021&id=50&rodzaj=M"
 url = toString(url)
 
 
-#odczytanie danych ze strony
 page = read_html(url)
 
 data = page %>% 
   html_elements("table#ctl00_MainContent_GridView1") 
 
 table_content = html_table(data)
-
+table_content = data.frame(table_content)
+table_content = table_content[ ,-c(7,8,10)]
+table_content
 
 #zapis danych, które zostaną odczytane
 temp_data = write.xlsx(
@@ -107,14 +125,105 @@ zoomers_export = write.xlsx(
   password = NULL
 )
 
+remDr$close()
+
+rd$stop()
 
 #usunięcie tymczasowego pliku
 
 unlink("temp.xlsx")
 
-#dodatkowe info: nie można odczytać poszczególnych danych bezpośrednio ze strony
-#powód: brak klas/id żeby móc to zrobić
-#rozwiązanie tymczasowe: pobieranie całego pliku tymczasowo do selekcji,
-#zapis wyselekcjonowanych danych, następnie usunięcie go
 
+remDr$close()
+rd$server$stop()
+
+source("functions.R")
+
+library(shiny)
+library(dplyr)
+library(RSelenium)
+library(rvest)
+
+shinyApp(
+  ui = fluidPage(
+    tags$head(tags$link(rel="stylesheet", 
+                        type="text/css",
+                        href="style.css")),
+    tags$head(tags$script(src="scripts.js")),
+    
+    titlePanel(h1("Ski Harvesting", align = "center")),
+    selectInput
+    ("chooseofdata", "Wybierz rodzaj danych: ",
+      list("Wybierz poniżej",
+           "Konkurs",
+           "Zawodnicy")
+    ),
+    
+    conditionalPanel(
+      condition = "input.chooseofdata == 'Zawodnicy'",
+      textInput
+      ("skijumper", "Wpisz imię i nazwisko zawodnika: "
+      ),
+    ),
+    actionButton("harvestdata", "Zbierz dane"),
+    textInput("colms", "Wybierz jakie kolumny mają zostać wybrane"),
+    textInput("where", "podaj warunek"),
+    textInput("order_by", "uporządkuj dane"),
+    uiOutput("chosen")
+    
+  ),
+  
+  server = function(input, output, session) {
+    observeEvent(c(input$harvestdata,input$colms, input$where, input$order_by), {
+      
+      if(input$chooseofdata == "Konkurs")
+      {
+        
+        url = "http://www.wyniki-skoki.hostingasp.pl/Konkurs.aspx?season=2021&id=50&rodzaj=M"
+        url = toString(url)
+        page = read_html(url)
+        
+        data = page %>% 
+          html_elements("table#ctl00_MainContent_GridView1") 
+        
+        table_content = html_table(data)
+        table_content = data.frame(table_content)
+        table_content = table_content[ ,-c(7,8,10)]
+        table_content
+      }
+      else{
+      }
+    })
+    filter_data = eventReactive(input$chosen, {
+      if(is.null(input$colms))
+      {
+        input$colms = "*"
+      }
+      else{
+        
+      }
+      if(!is.null(input$where))
+      {
+        where = paste("where", input$where)
+      }
+      else
+      {
+        
+      }
+      if(!is.null(input$order_by))
+      {
+        order_by = paste("order by", input$order_by)
+      }
+      else
+      {
+        
+      }
+      
+      query = parse("select", input$colms ,"from table_content", where, order_by)
+      results = sqldf(query)
+    })
+    output$chosen <- renderTable({ 
+      filter_data()
+    })
+  })  
 

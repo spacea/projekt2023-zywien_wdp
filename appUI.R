@@ -1,5 +1,5 @@
 source("functions.R")
-
+source("query.R")
 
 library(shiny)
 library(dplyr)
@@ -115,8 +115,11 @@ shinyApp(
         table_content = data.frame(table_content)
         table_content = table_content[ ,-c(7,8,10)]
         
-        results = sqldf("select * from table_content where [Suma.punktow] != 'Tq' 
-                        order by Miejsce")
+        results = select_data()
+        
+        remDr$close()
+        
+        system("taskkill /im java.exe /f", intern=FALSE, ignore.stdout=FALSE)
         
         output$chosen = renderTable({ 
           results
@@ -126,4 +129,4 @@ shinyApp(
   }
 )
 
-system("taskkill /im java.exe /f", intern=FALSE, ignore.stdout=FALSE)
+

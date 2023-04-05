@@ -1,26 +1,3 @@
-select_data = function()
-{
-
-}  
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 yeariteration = function()
 {
   x = "2021"

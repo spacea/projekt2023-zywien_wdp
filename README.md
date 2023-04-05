@@ -52,8 +52,8 @@
 ## Dodatkowe informacje
 - sporadycznie może pojawić się błąd:
 > Selenium message:Unable to locate element: [reszta informacji o błędzie]
-w takim przypadku, należy kliknąć w konsolę, a następnie naciśnąć "ESC". Po tym wpisać w nią 
+- w takim przypadku, należy kliknąć w konsolę, a następnie naciśnąć "ESC". Po tym wpisać w nią 
 > system("taskkill /im java.exe /f", intern=FALSE, ignore.stdout=FALSE).
 - w przypadku pojawienia się błędu:
 > Error in wdman::selenium: Selenium server signals port = 4444 is already in use.
-należy zrobić co powyżej.
+- należy zrobić co powyżej.

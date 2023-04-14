@@ -1,4 +1,22 @@
+@import url('https://fonts.googleapis.com/css2?family=Yusei+Magic&display=swap');
+
 body
 {
-    background-color: lightblue; 
+    background-color: lightblue;
+    font-family: Yusei Magic; 
+}
+#harvestdata
+{
+    position: relative;
+    top: 175px;
+}
+#harvestdata2
+{
+    position: relative;
+    top: 175px;
+}
+.col-sm-5
+{
+    position: relative;
+    top: 25px;
 }

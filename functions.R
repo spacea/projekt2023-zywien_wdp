@@ -2,7 +2,7 @@ yeariteration = function()
 {
   x = "2023"
   d = list("Wybierz poniżej")
-  while(x != "2014")
+  while(x != "2018")
   {
     d = append(d, x)
     x = as.numeric(x)
@@ -14,6 +14,10 @@ yeariteration = function()
 
 day_choose = function(season)
 {
+  if(season == "Wybierz poniżej")
+  {
+    list("Najpierw wybierz sezon!")
+  }
   if(season == "2023")
   {
     locations = list("Wybierz poniżej",

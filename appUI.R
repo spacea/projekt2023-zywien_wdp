@@ -8,6 +8,7 @@ library(rvest)
 library(xlsx)
 library(readxl)
 
+
 shinyApp(
   ui = fluidPage(
     tags$head(tags$link(rel="stylesheet", 
@@ -51,9 +52,9 @@ shinyApp(
       }
       else
       {
-        comp = paste0(input$chooseofseason,"/", input$chooseday)
-        content = read.xlsx2(comp, "Sheet1", col.names = TRUE,
-                             row.names = TRUE,append = FALSE,showNA = TRUE,password = NULL)
+        comp = paste0(input$chooseofseason, "/", input$chooseday, ".xlsx")
+        content = read.xlsx2(comp, "Sheet1", password = NULL)
+        content = content[-1]
         
         results = sqldf("select * from content where Narodowość = 'POL' and 
                   [Suma.punktow] != 'Tq' order by Miejsce")
@@ -65,4 +66,5 @@ shinyApp(
     })
   }
 )
+
 

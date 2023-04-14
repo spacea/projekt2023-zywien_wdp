@@ -13,10 +13,15 @@ body
 #harvestdata2
 {
     position: relative;
-    top: 175px;
+    top: 100px;
 }
 .col-sm-5
 {
     position: relative;
     top: 25px;
+}
+#chosen>table
+{
+    position: relative;
+    top: 200px;
 }

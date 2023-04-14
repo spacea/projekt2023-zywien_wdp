@@ -16,9 +16,9 @@ day_choose = function(season)
 {
   if(season == "Wybierz poniżej")
   {
-    list("Najpierw wybierz sezon!")
+    locations = list("Najpierw wybierz sezon!")
   }
-  if(season == "2023")
+  else if(season == "2023")
   {
     locations = list("Wybierz poniżej",
          "2022.11.05",

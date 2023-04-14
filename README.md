@@ -28,9 +28,8 @@
 ## Wymagania
 - Pakiety wymagane do poprawnego działania programu znajdują się w pliku required_packages.R
 - Wymagana wersja R - 4.2.3
-- Przeglądarka - Mozilla Firefox 
 
-## Uruchamianie
+## Uruchamianie (*** do zmiany ***)
 - Program uruchamiamy poprzez wczytanie pliku appUI.R, w skutek czego otwiera nam się okno Shiny.
 - Następnie klikamy w polę pod "Wybierz rodzaj danych:" i zaznaczamy "Konkurs", lub "Zawodnicy".
 ### Obsługa modułu "Konkurs"
@@ -41,7 +40,6 @@
 
 ## Do zrobienia
 - Dodanie kolejnych lat i konkursów do zawodów PŚ
-- Uproszczenie możliwości wykonywania zapytań w możliwym zakresie
 
 ## Wykorzystane dane
 - Wykorzystywana baza danych w programie - http://www.wyniki-skoki.hostingasp.pl/
@@ -51,10 +49,3 @@
 - Marcel Tomczak
 
 ## Dodatkowe informacje
-- sporadycznie może pojawić się błąd:
-> Selenium message:Unable to locate element: [reszta informacji o błędzie]
-- w takim przypadku, należy kliknąć w konsolę, a następnie naciśnąć "ESC". Po tym wpisać w nią 
-> <b>system("taskkill /im java.exe /f", intern=FALSE, ignore.stdout=FALSE).</b>
-- w przypadku pojawienia się błędu:
-> Error in wdman::selenium: Selenium server signals port = 4444 is already in use.
-- należy zrobić co powyżej.

@@ -1,9 +1,6 @@
-@import url('https://fonts.googleapis.com/css2?family=Yusei+Magic&display=swap');
-
 body
 {
     background-color: lightblue;
-    font-family: Yusei Magic; 
 }
 #harvestdata
 {
@@ -21,6 +18,11 @@ body
     top: 25px;
 }
 #chosentable>table
+{
+    position: relative;
+    top: 200px;
+}
+#chosentable2>table
 {
     position: relative;
     top: 200px;

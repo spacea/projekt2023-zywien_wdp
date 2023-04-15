@@ -182,7 +182,6 @@ day_choose = function(season)
 
 choose_skijumper = function(jumpername, jumpersur){
   jumpersur = toupper(jumpersur)
-  gsubskijumpname = ""
   for (i in 1:nchar(jumpername))
   {
     if(substr(jumpername, i, i) == " ")
@@ -191,7 +190,6 @@ choose_skijumper = function(jumpername, jumpersur){
       break
     }
   }
-  gsubskijumpsurname = ""
   for (i in 1:nchar(jumpersur))
   {
     if(substr(jumpersur, i, i) == " ")

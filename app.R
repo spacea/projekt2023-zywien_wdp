@@ -7,7 +7,6 @@ library(sqldf)
 library(rvest)
 
 
-
 shinyApp(
   ui = fluidPage(
     tags$head(tags$link(rel="stylesheet", 
@@ -36,7 +35,7 @@ shinyApp(
             ),
             actionButton("harvestdata2", "Kilknij, aby wprowadzić"),
             uiOutput("chosentable2"),
-            uiOutput("chosen2"))),
+            uiOutput("chosen2")))
       ),
     ),
   server = function(input, output, session) {
@@ -87,7 +86,6 @@ shinyApp(
         dane = html_table(data)
         dane = as.data.frame(dane)
         dane = dane[,-c(7,8,10)]
-        
         
         output$chosentable2 = renderTable({ 
           dane

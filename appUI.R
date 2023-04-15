@@ -5,8 +5,7 @@ library(shiny)
 library(dplyr)
 library(sqldf)
 library(rvest)
-library(xlsx)
-library(readxl)
+
 
 
 shinyApp(
@@ -25,14 +24,19 @@ shinyApp(
                 yeariteration()
               ),
           actionButton("harvestdata", "Kilknij, aby wprowadzić"),
-          uiOutput("chosen"))),
+          uiOutput("chosen"),
+          uiOutput("chosentable"))),
         tabPanel("Zawodnik",
           column(5,
             textInput
-              ("skijumper", "Wpisz imię i nazwisko zawodnika: "
+              ("skijumpername", "Wpisz imię zawodnika: "
               ),
+            textInput
+            ("skijumpersurname", "Wpisz nazwisko zawodnika: "
+            ),
             actionButton("harvestdata2", "Kilknij, aby wprowadzić"),
-          uiOutput("chosen2"))),
+            uiOutput("chosentable2"),
+            uiOutput("chosen2"))),
       ),
     ),
   server = function(input, output, session) {
@@ -48,20 +52,46 @@ shinyApp(
       
       if(input$chooseofseason == "Wybierz poniżej" || input$chooseday == "Wybierz poniżej")
       {
-        stop("wszystkie dane muszą zostać wybrane!")
+        output$chosentable = renderPrint({ 
+          p("Wszystkie dane musza zostać wybrane!")
+        })
       }
       else
       {
-        comp = paste0(input$chooseofseason, "/", input$chooseday, ".xlsx")
-        content = read.xlsx2(comp, "Sheet1", password = NULL)
+        comp = paste0(input$chooseofseason, "/", input$chooseday, ".csv")
+        content = read.csv(comp)
         content = content[-1]
         
         results = sqldf("select * from content where Narodowość = 'POL' and 
                   [Suma.punktow] != 'Tq' order by Miejsce")
           
-          output$chosen = renderTable({ 
+          output$chosentable = renderTable({ 
             results
           })
+      }  
+    })
+    observeEvent(input$harvestdata2, {
+      
+      if(input$skijumpername == "" || input$skijumpersurname == "")
+      {
+        output$chosentable2 = renderPrint({ 
+          p("Wpisz najpierw imię i/lub nazwisko zawodnika")
+        })
+      }
+      else
+      {
+        link = choose_skijumper(input$skijumpername, input$skijumpersurname)
+        link = as.character(link)
+        page = read_html(link)
+        data = page %>% html_elements("table#ctl00_MainContent_gvKonkursyMie") 
+        dane = html_table(data)
+        dane = as.data.frame(dane)
+        dane = dane[,-c(7,8,10)]
+        
+        
+        output$chosentable2 = renderTable({ 
+          dane
+        })
       }  
     })
   }

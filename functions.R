@@ -180,6 +180,29 @@ day_choose = function(season)
   }
 }
 
+choose_skijumper = function(jumpername, jumpersur){
+  jumpersur = toupper(jumpersur)
+  gsubskijumpname = ""
+  for (i in 1:nchar(jumpername))
+  {
+    if(substr(jumpername, i, i) == " ")
+    {
+      jumpername = gsub(" ", "%20", jumpername)
+      break
+    }
+  }
+  gsubskijumpsurname = ""
+  for (i in 1:nchar(jumpersur))
+  {
+    if(substr(jumpersur, i, i) == " ")
+    {
+      jumpersur = gsub(" ", "%20", jumpersur)
+      break
+    }
+  } 
+  skijumper = paste0("http://www.wyniki-skoki.hostingasp.pl/Zawodnik.aspx?name=",jumpersur,"%20",jumpername)
+  return(skijumper)
+}
 
 
 

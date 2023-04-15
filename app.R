@@ -5,7 +5,7 @@ library(shiny)
 library(dplyr)
 library(sqldf)
 library(rvest)
-
+library(ggplot2)
 
 shinyApp(
   ui = fluidPage(
@@ -24,6 +24,7 @@ shinyApp(
               ),
           actionButton("harvestdata", "Kilknij, aby wprowadzić"),
           uiOutput("chosen"),
+          plotOutput("chosengraph"),
           uiOutput("chosentable"))),
         tabPanel("Zawodnik",
           column(5,
@@ -35,7 +36,8 @@ shinyApp(
             ),
             actionButton("harvestdata2", "Kilknij, aby wprowadzić"),
             uiOutput("chosentable2"),
-            uiOutput("chosen2")))
+            plotOutput("chosengraph2", width = "1280", height = "720px", inline = FALSE),
+            tableOutput("chosen2")))
       ),
     ),
   server = function(input, output, session) {
@@ -87,8 +89,17 @@ shinyApp(
         dane = as.data.frame(dane)
         dane = dane[,-c(7,8,10)]
         
-        output$chosentable2 = renderTable({ 
-          dane
+        graph = sqldf("select * from dane where Miejsce is not NULL and 
+                      [Data.Konkursu] between '2022.11.05' and '2023.04.02'")
+        output$chosengraph2 <- renderPlot({
+          ggplot(graph, aes(x=Data.Konkursu, y=Miejsce)) + geom_point() + 
+            scale_y_reverse() +
+            scale_x_discrete(guide = guide_axis(angle = 90)) +
+            theme(axis.text.x = element_text(size = 9))
+        }, res = 192)
+        
+        output$chosen2 = renderTable({ 
+          graph
         })
       }  
     })

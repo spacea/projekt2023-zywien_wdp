@@ -5,14 +5,16 @@
 
 ## Spis
 * [Wstęp](#wstęp)
+* [Autorzy](#autorzy)
 * [Zastosowania](#zastosowania)
 * [Wymagania](#wymagania)
 * [Uruchamianie](#uruchamianie)
-* [Do zrobienia](#do-zrobienia)
 * [Wykorzystane dane](#wykorzystane-dane)
-* [Autorzy](#autorzy)
 * [Dodatkowe informacje](#dodatkowe-informacje)
 
+## Autorzy
+- Aleksander Żywień
+- Marcel Tomczak
 
 ## Wstęp
 - Ski Harvester pobiera i wyświetla dane dotyczące skoków narciarskich w łatwy i przystępny dla użytkownika sposób.
@@ -45,14 +47,7 @@ LUB
 ### Obsługa modułu "Zawodnicy"
 - W przypadku wybrania zawodników wyświetli nam się pole "Wpisz imię zawodnika:" oraz "Wpisz nazwisko zawodnika:", gdzie możemy wpisać dane interesującej nas osoby i otrzymujemy wykres oraz tabelę z danymi o zawodach, w których dany zawodnik brał udział.
 
-## Do zrobienia
-- Dodanie kolejnych lat i konkursów do zawodów PŚ
-
 ## Wykorzystane dane
 - Wykorzystywana baza danych w programie - http://www.wyniki-skoki.hostingasp.pl/
-
-## Autorzy
-- Aleksander Żywień
-- Marcel Tomczak
 
 ## Dodatkowe informacje

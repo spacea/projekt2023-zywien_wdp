@@ -19,7 +19,6 @@
 ## Wstęp
 - Ski Harvester pobiera i wyświetla dane dotyczące skoków narciarskich w łatwy i przystępny dla użytkownika sposób.
 - Program ma na celu ułatwić i przyspieszyć proces wyszukiwania informacji dla tego konkretnego sportu.
-- Projekt powstał, ponieważ jeden z autorów zaobserwował brak możliwości szybkiej analizy danych o skokach narciarskich we własnym zakresie.
 
 
 ## Zastosowania
@@ -33,7 +32,7 @@
 install.packages(c("rvest", "sqldf", "dplyr", "shiny", "ggplot2"))
 ```
 
-- Pakiety wymagane do poprawnego działania programu znajdują się w pliku required_packages.R
+- Pakiety wymagane do poprawnego działania programu znajdują się także w pliku required_packages.R
 - Wymagana wersja R - 4.2.3
 
 ## Uruchamianie
@@ -53,7 +52,7 @@ runGitHub("projekt2023-zywien_wdp", "spacea")
 ### Obsługa modułu "Zawodnicy"
 - W przypadku wybrania zawodników wyświetli nam się pole "Wpisz imię zawodnika:" oraz "Wpisz nazwisko zawodnika:", gdzie możemy wpisać dane interesującej nas osoby i otrzymujemy wykres oraz tabelę z danymi o zawodach PS z sezonu 2022/2023, w których dany zawodnik brał udział.
 ### Możliwość zmiany treści pytania (wymagane pobranie repozytorium)
-- SkiHarvester oferuje też możliwość edytowania kwerendy. Przed uruchomieniem pliku można uruchomić plik "query.R" i zmienić przykładowe zapytanie poprzez odhashowanie, lub też zaprojektować własne w języku SQL. Następnie należy również odhashować/stworzyć zawartość dla danych wykresowych, znajdujących się poniżej zapytania (należy pamiętać o zahashowaniu niepotrzebnych danych!)
+- SkiHarvester oferuje też możliwość edytowania kwerendy. Przed uruchomieniem aplikacji można uruchomić plik "query.R" i zmienić przykładowe zapytanie poprzez odhashowanie chcianej kwerendy, lub też zaprojektować własną w języku SQL. Następnie należy również odhashować/stworzyć zawartość dla danych wykresowych, znajdujących się poniżej zapytania (należy ciągle pamiętać o zahashowaniu niepotrzebnych danych, w przeciwnym razie aplikacja przestanie działać!)
 
 ## Wykorzystane dane
 - Wykorzystywana baza danych w programie - http://www.wyniki-skoki.hostingasp.pl/

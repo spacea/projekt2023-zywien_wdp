@@ -29,14 +29,21 @@
 - Pakiety wymagane do poprawnego działania programu znajdują się w pliku required_packages.R
 - Wymagana wersja R - 4.2.3
 
-## Uruchamianie (*** do zmiany ***)
+## Uruchamianie
+
+```r
+library(shiny)
+runGitHub("projekt2023-zywien_wdp", "spacea")
+```
+LUB
+
 - Program uruchamiamy poprzez wczytanie pliku appUI.R, wskutek czego otwiera nam się okno Shiny.
 - Następnie w oknie Shiny wybieramy zakładkę "Konkurs", lub "Zawodnicy".
 ### Obsługa modułu "Konkurs"
-- W przypadku wybrania konkursu wyświetlą nam się kolejne pola wyboru takie jak "Wybierz sezon" -> "Wybierz dzień:". Wyświetli nam się tabela wyników zawierające informację o polskich zawodnikach, którzy brali w nich udział tego dnia.
+- W przypadku wybrania konkursu wyświetlą nam się kolejne pola wyboru takie jak "Wybierz sezon" -> "Wybierz dzień:". Wyświetli nam się wykres oraz tabela wyników zawierające informację o polskich zawodnikach, którzy brali w nich udział tego dnia.
 - Przed naciśnięciem przycisku "Kliknij, aby wprowadzić" można uruchomić plik i zmienić zapytanie w linii 122 pliku appUI.R lub zaprojektować własne w języku SQL, przykłady są w pliku "query.R" (należy pamiętać o skomentowaniu niepotrzebnych danych!)
 ### Obsługa modułu "Zawodnicy"
-- W przypadku wybrania zawodników wyświetli nam się pole "Wpisz imię zawodnika:" oraz "Wpisz nazwisko zawodnika:", gdzie możemy wpisać dane interesującej nas osoby i otrzymujemy tabele z danymi o zawodach, w których dany zawodnik brał udział.
+- W przypadku wybrania zawodników wyświetli nam się pole "Wpisz imię zawodnika:" oraz "Wpisz nazwisko zawodnika:", gdzie możemy wpisać dane interesującej nas osoby i otrzymujemy wykres oraz tabelę z danymi o zawodach, w których dany zawodnik brał udział.
 
 ## Do zrobienia
 - Dodanie kolejnych lat i konkursów do zawodów PŚ

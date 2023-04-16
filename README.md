@@ -27,7 +27,12 @@
 - Filtrowanie danych zawodników.
 
 
-## Wymagania
+## Wymagania/Instalacja
+
+```r
+install.packages(c("rvest", "sqldf", "dplyr", "shiny", "ggplot2"))
+```
+
 - Pakiety wymagane do poprawnego działania programu znajdują się w pliku required_packages.R
 - Wymagana wersja R - 4.2.3
 

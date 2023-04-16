@@ -2,6 +2,10 @@ body
 {
     background-color: lightblue;
 }
+h2
+{
+  text-align: center;
+}
 #harvestdata
 {
     position: relative;
@@ -20,10 +24,30 @@ body
 #chosentable>table
 {
     position: relative;
-    top: 200px;
+    top: 280px;
 }
 #chosentable2>table
 {
     position: relative;
-    top: 200px;
+    top: 280px;
+}
+#chosengraph2, #chosengraph
+{
+    position: relative;
+    top: 150px;
+}
+.col-sm-5 > div:nth-of-type(2)
+{
+    position: relative;
+    top: 40px;
+}
+#chosen > div
+{
+    position: relative;
+    bottom: 38px;
+}
+#chosen2
+{
+    position: relative;
+    top: 175px;
 }

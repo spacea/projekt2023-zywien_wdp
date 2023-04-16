@@ -13,8 +13,9 @@ shinyApp(
                         type="text/css",
                         href="style.css")),
     tags$head(tags$script(src="scripts.js")),
+    tags$head(tags$link(rel="shortcut icon", href="favicon.ico")),
     
-    titlePanel(h1("Ski Harvesting", align = "center")),
+    titlePanel("Ski Harvesting"),
       tabsetPanel(
         tabPanel("Konkurs",
           column(5,
@@ -24,8 +25,8 @@ shinyApp(
               ),
           actionButton("harvestdata", "Kilknij, aby wprowadzić"),
           uiOutput("chosen"),
-          plotOutput("chosengraph"),
-          uiOutput("chosentable"))),
+          plotOutput("chosengraph", width = "1066px", height = "600px", inline = FALSE),
+          tableOutput("chosentable"))),
         tabPanel("Zawodnik",
           column(5,
             textInput
@@ -36,7 +37,7 @@ shinyApp(
             ),
             actionButton("harvestdata2", "Kilknij, aby wprowadzić"),
             uiOutput("chosentable2"),
-            plotOutput("chosengraph2", width = "1280", height = "720px", inline = FALSE),
+            plotOutput("chosengraph2", width = "1066px", height = "600px", inline = FALSE),
             tableOutput("chosen2")))
       ),
     ),
@@ -60,15 +61,20 @@ shinyApp(
       else
       {
         comp = paste0(input$chooseofseason, "/", input$chooseday, ".csv")
-        content = read.csv(comp)
-        content = content[-1]
-        
-        results = sqldf("select * from content where Narodowość = 'POL' and 
-                  [Suma.punktow] != 'Tq' order by Miejsce")
           
-          output$chosentable = renderTable({ 
-            results
-          })
+        results = contest_query(comp)
+        
+        output$chosengraph = renderPlot({
+          ggplot(results, aes(x=Suma.punktow, y=Miejsce)) + geom_point() + 
+            scale_y_reverse() +
+            scale_x_reverse() +
+            scale_x_discrete(guide = guide_axis(angle = 90)) +
+            theme(axis.text.x = element_text(size = 9))
+        }, res = 192)
+        
+        output$chosentable = renderTable({ 
+          results
+        })
       }  
     })
     observeEvent(input$harvestdata2, {
@@ -83,15 +89,11 @@ shinyApp(
       {
         link = choose_skijumper(input$skijumpername, input$skijumpersurname)
         link = as.character(link)
-        page = read_html(link)
-        data = page %>% html_elements("table#ctl00_MainContent_gvKonkursyMie") 
-        dane = html_table(data)
-        dane = as.data.frame(dane)
-        dane = dane[,-c(7,8,10)]
+
         
-        graph = sqldf("select * from dane where Miejsce is not NULL and 
-                      [Data.Konkursu] between '2022.11.05' and '2023.04.02'")
-        output$chosengraph2 <- renderPlot({
+        graph = contestant_query(link)
+        
+        output$chosengraph2 = renderPlot({
           ggplot(graph, aes(x=Data.Konkursu, y=Miejsce)) + geom_point() + 
             scale_y_reverse() +
             scale_x_discrete(guide = guide_axis(angle = 90)) +

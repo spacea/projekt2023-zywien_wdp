@@ -96,8 +96,8 @@ shinyApp(
         
         output$chosengraph2 = renderPlot({
           ggplot(graph, os2()) + 
-            ### TUTAJ MODYFIKUJESZ KOD JAK CHCESZ ODWRÓCIĆ SKALĘ I/LUB 
-            ### OBRÓCIĆ DATY, ABY BYŁY CZYTELNE (na przykład dla pierwszego)
+            ### TE DANE PONIŻEJ HASHUJESZ JAK CHCESZ ODWRÓCIĆ SKALĘ I/LUB 
+            ### OBRÓCIĆ DATY, ABY BYŁY CZYTELNE (na przykład dla pierwszej kwerendy)
             
             geom_point() + # <--- od tego plusa 
             scale_y_reverse() +

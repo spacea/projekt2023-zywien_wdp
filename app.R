@@ -1,21 +1,24 @@
+#pliki zewnętrzne
 source("functions.R")
 source("query.R")
 
+#biblioteki
 library(shiny)
 library(dplyr)
 library(sqldf)
 library(rvest)
 library(ggplot2)
 
+#aplikacja
 shinyApp(
   ui = fluidPage(
-    tags$head(tags$link(rel="stylesheet", 
+    tags$head(tags$link(rel="stylesheet", #nagłówek, z odnośnikami do css/js/ikony
                         type="text/css",
                         href="style.css")),
     tags$head(tags$script(src="scripts.js")),
     tags$head(tags$link(rel="shortcut icon", href="favicon.ico")),
     
-    titlePanel("Ski Harvesting"),
+    titlePanel("Ski Harvesting"), #tytuł
       tabsetPanel(
         tabPanel("Konkurs",
           column(5,
@@ -65,12 +68,10 @@ shinyApp(
         results = contest_query(comp)
         
         output$chosengraph = renderPlot({
-          ggplot(results, aes(x=Suma.punktow, y=Miejsce)) + geom_point() + 
-            scale_y_reverse() +
-            scale_x_reverse() +
-            scale_x_discrete(guide = guide_axis(angle = 90)) +
-            theme(axis.text.x = element_text(size = 9))
-        }, res = 192)
+          ggplot(results, os1()) + 
+            geom_point() + 
+            scale_y_reverse() 
+        }, res = 150)
         
         output$chosentable = renderTable({ 
           results
@@ -94,11 +95,15 @@ shinyApp(
         graph = contestant_query(link)
         
         output$chosengraph2 = renderPlot({
-          ggplot(graph, aes(x=Data.Konkursu, y=Miejsce)) + geom_point() + 
+          ggplot(graph, os2()) + 
+            ### TUTAJ MODYFIKUJESZ KOD JAK CHCESZ ODWRÓCIĆ SKALĘ I/LUB 
+            ### OBRÓCIĆ DATY, ABY BYŁY CZYTELNE (na przykład dla pierwszego)
+            
+            geom_point() + # <--- od tego plusa 
             scale_y_reverse() +
-            scale_x_discrete(guide = guide_axis(angle = 90)) +
-            theme(axis.text.x = element_text(size = 9))
-        }, res = 192)
+            scale_x_discrete(guide = guide_axis(angle = 90))
+          ### KONIEC
+        }, res = 150)
         
         output$chosen2 = renderTable({ 
           graph

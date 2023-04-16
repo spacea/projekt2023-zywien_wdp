@@ -59,11 +59,11 @@ runGitHub("projekt2023-zywien_wdp", "spacea")
 ## Wykorzystane dane
 - Wykorzystywana baza danych w programie - http://www.wyniki-skoki.hostingasp.pl/
 
-## opis plików/folderów
-### foldery
+## Opis plików/folderów
+### Foldery
 - z latami: zawierają dane dla konkursów z sezonów 2019-2023
 - www: ikonka dla karty w przeglądarce (favicon) oraz plik z kaskadowym arkuszem styli dla aplikacji
-### pliki
+### Pliki
 - README.md: instrukcja i informacje o aplikacji
 - app.R: aplikacja
 - functions.R: funkcje niezbędne do działania aplikacji

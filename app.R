@@ -19,6 +19,9 @@ shinyApp(
     tags$head(tags$link(rel="shortcut icon", href="favicon.ico")),
     
     titlePanel("Ski Harvesting"), #tytuł
+      tags$div(
+        HTML("<input type='color' id='bgchangecolor' value='#8888ff'>")
+      ),
       tabsetPanel(
         tabPanel("Konkurs",
           column(5,

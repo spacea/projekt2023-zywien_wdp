@@ -49,24 +49,25 @@ runGitHub("projekt2023-zywien_wdp", "spacea")
 - Program uruchamiamy poprzez wczytanie pliku app.R, wskutek czego otwiera nam się okno Shiny. Można także program uruchomić przez przeglądarke
 - Następnie w oknie Shiny wybieramy zakładkę "Konkurs", lub "Zawodnicy".
 ### Obsługa modułu "Konkurs"
-- W przypadku wybrania konkursu wyświetla nam się pole wyboru "Wybierz sezon". Po wybraniu ukazuje się pole: "Wybierz dzień:". Po naciśnięciu przycisku "Klknij aby wprowadzić" wyświetli nam się wykres oraz tabela wyników zawierające informację o polskich zawodnikach, którzy brali w nich udział tego dnia.
+- W przypadku wybrania konkursu wyświetla nam się pole wyboru "Wybierz sezon". Po wybraniu sezonu poprzez kliknięcie ukazuje się pole: "Wybierz dzień:", gdzie należy wprowadzić dzień zawodów. Po naciśnięciu przycisku "Klknij aby wprowadzić" wyświetli nam się wykres oraz tabela wyników domyślnie zawierające informację o polskich zawodnikach, którzy brali w nich udział tego dnia.
 ### Obsługa modułu "Zawodnicy"
-- W przypadku wybrania zawodników wyświetli nam się pole "Wpisz imię zawodnika:" oraz "Wpisz nazwisko zawodnika:", gdzie możemy wpisać dane interesującej nas osoby (bez znaków diakrytycznych). Po naciśnięciu przycisku "Klknij aby wprowadzić" otrzymujemy wykres oraz tabelę z danymi o zawodach PS z sezonu 2022/2023, w których dany zawodnik brał udział.
+- W przypadku wybrania zawodników wyświetli nam się pole "Wpisz imię zawodnika:" oraz "Wpisz nazwisko zawodnika:", gdzie możemy wpisać nazwę interesującej nas osoby (bez znaków diakrytycznych). Po naciśnięciu przycisku "Klknij aby wprowadzić" otrzymujemy domyślnie wykres oraz tabelę z danymi o zawodach PS z sezonu 2022/2023, w których dany zawodnik brał udział.
 ### Możliwość zmiany treści pytania (uwaga: trzeba pobrać repozytorium do tej operacji!)
 - SkiHarvester oferuje też możliwość edytowania kwerendy. Przed uruchomieniem aplikacji można uruchomić plik "query.R" i zmienić przykładowe zapytanie poprzez odhashowanie chcianej kwerendy, lub też zaprojektować własną w języku SQL. Następnie należy również odhashować/stworzyć zawartość dla danych wykresowych, znajdujących się poniżej zapytania (należy ciągle pamiętać o zahashowaniu niepotrzebnych danych, w przeciwnym razie aplikacja przestanie działać!)
 - Dodatkowa informacja dla modułu zawodnicy: Jeżeli dane w osi X przestaną być widoczne lub chcesz obrócić oś Y należy w pliku app.R zahashować linie, zgodnie z opisem.
-
+### Personalizacja wyglądu
+- Aplikacja oferuje możliwość zmiany koloru tła. Żeby tego dokonać należy w górnym prawym roku kliknąć znajdujący się tam przycisk z kolorem. Po kliknięciu można już ustawić kolor tła spersonalizowany pod siebie. Zmiany zaaplikują się w momencie kliknięcia poza obszar ustawień/przycisku.
 
 ## Wykorzystane dane
 - Wykorzystywana baza danych w programie - http://www.wyniki-skoki.hostingasp.pl/
 
 ## Opis plików/folderów
 ### Foldery
-- z latami: zawierają dane dla konkursów z sezonów 2019-2023
+- Z latami: zawierają dane dla konkursów z sezonów 2019-2023
 - www: ikonka dla karty w przeglądarce (favicon) oraz plik z kaskadowym arkuszem styli dla aplikacji
 ### Pliki
 - README.md: instrukcja i informacje o aplikacji
 - app.R: aplikacja
 - functions.R: funkcje niezbędne do działania aplikacji
 - query.R: zapytania dla aplikacji
-- required_packages: potrzebne biblioteki do działania aplikacji
+- required_packages.R: potrzebne biblioteki do działania aplikacji
